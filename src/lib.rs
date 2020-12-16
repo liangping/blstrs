@@ -28,6 +28,7 @@ pub use g2::*;
 pub use pairing::*;
 pub use scalar::{Scalar, ScalarRepr, S as SCALAR_S};
 pub use traits::*;
+pub use std::marker::{Send, Sync};
 
 #[cfg(feature = "serde")]
 mod serde_impl;
@@ -42,6 +43,9 @@ pub struct Bls12;
 impl fff::ScalarEngine for Bls12 {
     type Fr = Scalar;
 }
+
+unsafe impl Send for Bls12 {}
+unsafe impl Sync for Bls12 {}
 
 impl Engine for Bls12 {
     type G1 = G1Projective;
